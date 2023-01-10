@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const index = require('./routes');
+const errorHandler = require('errorhandler');
 require('./database');
 
 const app = express();
@@ -16,8 +17,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(index);
 
+// app.use((err, req, res, next) => {
+//   const code = err.code || 500;
+//   res.status(code).json({
+//     code: code,
+//     message: code === 500 ? null : err.message
+//   });
+// })
 
 app.listen(port, () => {
-    // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console
     console.log(`The app listening at http://localhost:${port}`)
   });
